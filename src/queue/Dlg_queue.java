@@ -44,6 +44,7 @@ import mijzcx.synapse.desk.utils.CloseDialog;
 import mijzcx.synapse.desk.utils.FitIn;
 import mijzcx.synapse.desk.utils.KeyMapping;
 import mijzcx.synapse.desk.utils.KeyMapping.KeyAction;
+import qs.announcements.Announcements;
 import qs.counters.Counters;
 import qs.queues.Queues;
 import uk.co.caprica.vlcj.binding.LibVlc;
@@ -994,8 +995,12 @@ public class Dlg_queue extends javax.swing.JDialog {
 
     //<editor-fold defaultstate="collapsed" desc=" announcements ">
     private void ret_announcements() {
-        String s = "Rehabilitation of 10 inches pipelines located at Camandagan Creek Brgy. Maningcao Sibulan."
-                + "Interconnection of 4 inches and 10 inches PVC pipes at Magatas Sibulan Negros Oriental ";
+        List<Announcements.to_announcements> announcements = Announcements.ret_data("order by id desc ");
+        String s = "";
+        for (Announcements.to_announcements a : announcements) {
+            s = s + " " + a.announcement;
+        }
+
         String font = System.getProperty("font_size", "small");
         int size = 0;
         if (font.equalsIgnoreCase("small")) {
@@ -1170,7 +1175,7 @@ public class Dlg_queue extends javax.swing.JDialog {
                 KeyEvent.VK_F12, new KeyAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                play_audio();
+                play_audio("1", "1");
             }
         });
 
@@ -1317,7 +1322,7 @@ public class Dlg_queue extends javax.swing.JDialog {
                         queues[iii].setForeground(new java.awt.Color(0, 0, 0));
                         counters[iii].setForeground(new java.awt.Color(0, 0, 0));
                         animateLabel(counters[iii], queues[iii], type);
-                        play_audio();
+                        play_audio(counter_no, queue_no);
                     } else {
                         animateLabel_hide(counters[iii], queues[iii], type);
                     }
@@ -1447,7 +1452,7 @@ public class Dlg_queue extends javax.swing.JDialog {
         t.start();
     }
 
-    private void play_audio() {
+    private void play_audio(String customer_no, String counter_no) {
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -1464,9 +1469,11 @@ public class Dlg_queue extends javax.swing.JDialog {
 
                     VoiceManager vm = VoiceManager.getInstance();
                     Voice v = vm.getVoice("mbrola_us1");
+                    v.setPitchShift(1);
+                    v.setPitchRange(10);
                     v.allocate();
-                    v.speak("Customer Number 1, please proceed to counter 2");
-                    v.speak("Customer Number 1, please proceed to counter 2");
+                    v.speak("Customer Number " + customer_no + ", please proceed to counter " + counter_no);
+                    v.speak("Customer Number " + customer_no + ", please proceed to counter " + counter_no);
                     mediaPlayer.mute();
                 } catch (Exception e) {
                     System.out.println(e);
