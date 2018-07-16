@@ -179,6 +179,7 @@ public class MyMain {
         pnl.setSize();
         pnl.set_font();
         pnl.set_lib();
+        pnl.start_server2();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
