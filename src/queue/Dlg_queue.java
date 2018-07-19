@@ -1470,11 +1470,11 @@ public class Dlg_queue extends javax.swing.JDialog {
 
                     VoiceManager vm = VoiceManager.getInstance();
                     Voice v = vm.getVoice("mbrola_us1");
-                    v.setPitchShift(1);
-                    v.setPitchRange(10);
+                    v.setDurationStretch(1);//set slow/fast talking
+                    v.setPitchRange(30); //30-normal
                     v.allocate();
-                    v.speak("Customer Number " + counter_no + ", please proceed to counter " + customer_no);
-                    v.speak("Customer Number " + counter_no + ", please proceed to counter " + customer_no);
+                    v.speak("Customer Number " + counter_no + "... please proceed to counter " + customer_no + "...");
+                    v.speak("Customer Number " + counter_no + "... please proceed to counter " + customer_no + "...");
                     mediaPlayer.mute();
                 } catch (Exception e) {
                     System.out.println(e);
@@ -1546,4 +1546,6 @@ public class Dlg_queue extends javax.swing.JDialog {
 
     }
     //</editor-fold>
+
 }
+
