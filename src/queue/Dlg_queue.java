@@ -7,8 +7,6 @@ package queue;
 
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
-import com.sun.speech.freetts.Voice;
-import com.sun.speech.freetts.VoiceManager;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -46,7 +44,7 @@ import mijzcx.synapse.desk.utils.KeyMapping;
 import mijzcx.synapse.desk.utils.KeyMapping.KeyAction;
 import qs.announcements.Announcements;
 import qs.counters.Counters;
-import qs.queues.Queues;
+import qs.util.ExecuteShellComand;
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.medialist.MediaList;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
@@ -246,22 +244,21 @@ public class Dlg_queue extends javax.swing.JDialog {
         jLabel18 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
-        jPanel15 = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
-        jPanel16 = new javax.swing.JPanel();
-        jLabel26 = new javax.swing.JLabel();
-        jPanel17 = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
-        jPanel18 = new javax.swing.JPanel();
-        jLabel32 = new javax.swing.JLabel();
-        jPanel19 = new javax.swing.JPanel();
-        jLabel35 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
+        jPanel15 = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
         jPanel21 = new javax.swing.JPanel();
         jLabel41 = new javax.swing.JLabel();
+        jPanel19 = new javax.swing.JPanel();
+        jLabel35 = new javax.swing.JLabel();
+        jPanel17 = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        jPanel16 = new javax.swing.JPanel();
+        jLabel26 = new javax.swing.JLabel();
         jPanel23 = new javax.swing.JPanel();
         jPanel24 = new javax.swing.JPanel();
         jLabel42 = new javax.swing.JLabel();
@@ -269,6 +266,7 @@ public class Dlg_queue extends javax.swing.JDialog {
         jPanel10 = new javax.swing.JPanel();
         jPanel27 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -281,6 +279,7 @@ public class Dlg_queue extends javax.swing.JDialog {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Queing System");
 
+        jLabel4.setBackground(java.awt.Color.lightGray);
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Sibulan Water District");
@@ -298,7 +297,7 @@ public class Dlg_queue extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(189, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,13 +314,19 @@ public class Dlg_queue extends javax.swing.JDialog {
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setMaximumSize(new java.awt.Dimension(250, 32767));
+        jPanel4.setMinimumSize(new java.awt.Dimension(250, 0));
+        jPanel4.setPreferredSize(new java.awt.Dimension(100, 411));
+
+        jPanel22.setMaximumSize(new java.awt.Dimension(150, 32767));
+        jPanel22.setMinimumSize(new java.awt.Dimension(150, 0));
 
         jPanel12.setBackground(new java.awt.Color(231, 231, 231));
         jPanel12.setPreferredSize(new java.awt.Dimension(0, 63));
 
         jLabel21.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setMinimumSize(new java.awt.Dimension(250, 0));
+        jLabel21.setMinimumSize(new java.awt.Dimension(150, 0));
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -333,7 +338,7 @@ public class Dlg_queue extends javax.swing.JDialog {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addGap(2, 2, 2)
-                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(2, 2, 2))
         );
 
@@ -344,16 +349,17 @@ public class Dlg_queue extends javax.swing.JDialog {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Counter");
+        jLabel1.setMinimumSize(new java.awt.Dimension(150, 0));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel9.setBackground(new java.awt.Color(231, 231, 231));
@@ -361,7 +367,7 @@ public class Dlg_queue extends javax.swing.JDialog {
 
         jLabel19.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setMinimumSize(new java.awt.Dimension(250, 0));
+        jLabel19.setMinimumSize(new java.awt.Dimension(150, 0));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -382,7 +388,7 @@ public class Dlg_queue extends javax.swing.JDialog {
 
         jLabel22.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setMinimumSize(new java.awt.Dimension(250, 0));
+        jLabel22.setMinimumSize(new java.awt.Dimension(150, 0));
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -394,7 +400,7 @@ public class Dlg_queue extends javax.swing.JDialog {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGap(2, 2, 2)
-                .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(2, 2, 2))
         );
 
@@ -403,7 +409,7 @@ public class Dlg_queue extends javax.swing.JDialog {
 
         jLabel20.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel20.setMinimumSize(new java.awt.Dimension(250, 0));
+        jLabel20.setMinimumSize(new java.awt.Dimension(150, 0));
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -424,7 +430,7 @@ public class Dlg_queue extends javax.swing.JDialog {
 
         jLabel18.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setMinimumSize(new java.awt.Dimension(250, 0));
+        jLabel18.setMinimumSize(new java.awt.Dimension(150, 0));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -436,29 +442,31 @@ public class Dlg_queue extends javax.swing.JDialog {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(2, 2, 2)
-                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(2, 2, 2))
         );
 
         jPanel8.setBackground(new java.awt.Color(231, 231, 231));
-        jPanel8.setPreferredSize(new java.awt.Dimension(0, 63));
+        jPanel8.setPreferredSize(new java.awt.Dimension(150, 63));
 
         jLabel17.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setMinimumSize(new java.awt.Dimension(250, 0));
+        jLabel17.setMinimumSize(new java.awt.Dimension(150, 0));
         jLabel17.setPreferredSize(new java.awt.Dimension(0, 63));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(2, 2, 2)
-                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                 .addGap(2, 2, 2))
         );
 
@@ -469,65 +477,169 @@ public class Dlg_queue extends javax.swing.JDialog {
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 192, Short.MAX_VALUE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 192, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 192, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 192, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 192, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 192, Short.MAX_VALUE))
+                    .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                 .addGap(1, 1, 1)
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                 .addGap(1, 1, 1)
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
                 .addGap(1, 1, 1)
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
                 .addGap(3, 3, 3)
-                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
                 .addGap(2, 2, 2)
-                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
                 .addGap(1, 1, 1)
-                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
+        jPanel14.setMaximumSize(new java.awt.Dimension(150, 32767));
+        jPanel14.setMinimumSize(new java.awt.Dimension(150, 0));
+
+        jPanel20.setBackground(new java.awt.Color(231, 231, 231));
+        jPanel20.setPreferredSize(new java.awt.Dimension(0, 63));
+
+        jLabel38.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
+        jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel38.setMinimumSize(new java.awt.Dimension(150, 0));
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel38, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addGap(2, 2, 2)
+                .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                .addGap(2, 2, 2))
+        );
+
         jPanel15.setBackground(new java.awt.Color(25, 130, 191));
-        jPanel15.setPreferredSize(new java.awt.Dimension(119, 63));
+        jPanel15.setPreferredSize(new java.awt.Dimension(0, 63));
 
         jLabel24.setFont(new java.awt.Font("Arial Unicode MS", 0, 20)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel24.setText("Customer");
-        jLabel24.setPreferredSize(new java.awt.Dimension(87, 63));
+        jLabel24.setMinimumSize(new java.awt.Dimension(150, 0));
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+        );
+
+        jPanel18.setBackground(new java.awt.Color(231, 231, 231));
+        jPanel18.setPreferredSize(new java.awt.Dimension(0, 63));
+
+        jLabel32.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
+        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel32.setMinimumSize(new java.awt.Dimension(150, 0));
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addGap(2, 2, 2)
+                .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                .addGap(2, 2, 2))
+        );
+
+        jPanel21.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel21.setPreferredSize(new java.awt.Dimension(0, 63));
+
+        jLabel41.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
+        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel41.setMinimumSize(new java.awt.Dimension(150, 0));
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel41, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addGap(2, 2, 2)
+                .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                .addGap(2, 2, 2))
+        );
+
+        jPanel19.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel19.setPreferredSize(new java.awt.Dimension(0, 63));
+
+        jLabel35.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
+        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel35.setMinimumSize(new java.awt.Dimension(150, 0));
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addGap(2, 2, 2)
+                .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                .addGap(2, 2, 2))
+        );
+
+        jPanel17.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel17.setPreferredSize(new java.awt.Dimension(0, 63));
+
+        jLabel29.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel29.setMinimumSize(new java.awt.Dimension(150, 0));
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addGap(2, 2, 2)
+                .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                .addGap(2, 2, 2))
         );
 
         jPanel16.setBackground(new java.awt.Color(231, 231, 231));
-        jPanel16.setPreferredSize(new java.awt.Dimension(0, 63));
+        jPanel16.setPreferredSize(new java.awt.Dimension(150, 63));
 
         jLabel26.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel26.setMinimumSize(new java.awt.Dimension(250, 0));
+        jLabel26.setMinimumSize(new java.awt.Dimension(150, 0));
         jLabel26.setPreferredSize(new java.awt.Dimension(0, 63));
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
@@ -535,125 +647,14 @@ public class Dlg_queue extends javax.swing.JDialog {
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
-                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-        );
-
-        jPanel17.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel17.setPreferredSize(new java.awt.Dimension(119, 63));
-
-        jLabel29.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
-        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel29.setMinimumSize(new java.awt.Dimension(250, 0));
-
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(147, 147, 147))
-        );
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(2, 2, 2))
-        );
-
-        jPanel18.setBackground(new java.awt.Color(231, 231, 231));
-        jPanel18.setPreferredSize(new java.awt.Dimension(119, 63));
-
-        jLabel32.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
-        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel32.setMinimumSize(new java.awt.Dimension(250, 0));
-
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
+            .addGroup(jPanel16Layout.createSequentialGroup()
                 .addGap(2, 2, 2)
-                .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
-
-        jPanel19.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel19.setPreferredSize(new java.awt.Dimension(119, 63));
-
-        jLabel35.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
-        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel35.setMinimumSize(new java.awt.Dimension(250, 0));
-
-        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
-        jPanel19.setLayout(jPanel19Layout);
-        jPanel19Layout.setHorizontalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel19Layout.createSequentialGroup()
-                .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
-        jPanel19Layout.setVerticalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel19Layout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(2, 2, 2))
-        );
-
-        jPanel20.setBackground(new java.awt.Color(231, 231, 231));
-        jPanel20.setPreferredSize(new java.awt.Dimension(119, 63));
-
-        jLabel38.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
-        jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel38.setMinimumSize(new java.awt.Dimension(250, 0));
-
-        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
-        jPanel20.setLayout(jPanel20Layout);
-        jPanel20Layout.setHorizontalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel20Layout.setVerticalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                .addGap(2, 2, 2))
-        );
-
-        jPanel21.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel21.setPreferredSize(new java.awt.Dimension(119, 63));
-
-        jLabel41.setFont(new java.awt.Font("AXIS Extra Bold", 1, 40)); // NOI18N
-        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel41.setMinimumSize(new java.awt.Dimension(250, 0));
-
-        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
-        jPanel21.setLayout(jPanel21Layout);
-        jPanel21Layout.setHorizontalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(2, 2, 2))
-        );
-        jPanel21Layout.setVerticalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
                 .addGap(2, 2, 2))
         );
 
@@ -662,48 +663,35 @@ public class Dlg_queue extends javax.swing.JDialog {
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addGap(1, 1, 1)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 223, Short.MAX_VALUE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 223, Short.MAX_VALUE)
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, Short.MAX_VALUE)
-                            .addComponent(jPanel20, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, Short.MAX_VALUE)
-                            .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, Short.MAX_VALUE))
-                        .addGap(1, 1, 1))
-                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 223, Short.MAX_VALUE))
-                .addGap(3, 3, 3))
-            .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel20, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                    .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                    .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                .addGap(5, 5, 5)
-                .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                 .addGap(1, 1, 1)
-                .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addGap(1, 1, 1)
+                .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                .addGap(1, 1, 1)
+                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
+                .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                .addGap(2, 2, 2)
+                .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                .addGap(1, 1, 1)
+                .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
-        );
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -714,7 +702,7 @@ public class Dlg_queue extends javax.swing.JDialog {
                 .addGap(0, 0, 0)
                 .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(1, 1, 1)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         jPanel4Layout.setVerticalGroup(
@@ -722,9 +710,11 @@ public class Dlg_queue extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
+
+        jPanel23.setMinimumSize(new java.awt.Dimension(300, 0));
 
         jPanel24.setBackground(new java.awt.Color(255, 255, 255));
         jPanel24.setMaximumSize(new java.awt.Dimension(536, 94));
@@ -755,18 +745,20 @@ public class Dlg_queue extends javax.swing.JDialog {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 536, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -777,8 +769,11 @@ public class Dlg_queue extends javax.swing.JDialog {
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel25, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel25, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, 318, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -815,6 +810,20 @@ public class Dlg_queue extends javax.swing.JDialog {
                 .addGap(5, 5, 5))
         );
 
+        jPanel5.setOpaque(false);
+        jPanel5.setPreferredSize(new java.awt.Dimension(5, 0));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -822,16 +831,19 @@ public class Dlg_queue extends javax.swing.JDialog {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(0, 0, 0)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
                     .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -847,9 +859,7 @@ public class Dlg_queue extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -928,16 +938,17 @@ public class Dlg_queue extends javax.swing.JDialog {
             jLabel1.setFont(new java.awt.Font("Arial Unicode MS", 0, 20));
             jLabel24.setFont(new java.awt.Font("Arial Unicode MS", 0, 20));
             jLabel42.setFont(new java.awt.Font("AXIS Extra Bold", 0, 16));
-            cn_font(40);
+
+            cn_font(30);
         }
         if (font.equalsIgnoreCase("medium")) {
             jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qs/img/linq_logo_medium.png")));
-            jLabel2.setFont(new java.awt.Font("Tahoma", 1, 26));
-            jLabel4.setFont(new java.awt.Font("Tahoma", 0, 20));
-            jLabel1.setFont(new java.awt.Font("Arial Unicode MS", 0, 40));
-            jLabel24.setFont(new java.awt.Font("Arial Unicode MS", 0, 40));
-            jLabel42.setFont(new java.awt.Font("AXIS Extra Bold", 0, 26));
-            cn_font(60);
+            jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16));
+            jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12));
+            jLabel1.setFont(new java.awt.Font("Arial Unicode MS", 0, 30));
+            jLabel24.setFont(new java.awt.Font("Arial Unicode MS", 0, 30));
+            jLabel42.setFont(new java.awt.Font("AXIS Extra Bold", 0, 16));
+            cn_font(50);
         }
         if (font.equalsIgnoreCase("large")) {
             jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qs/img/linq_logo_large.png")));
@@ -1011,7 +1022,7 @@ public class Dlg_queue extends javax.swing.JDialog {
             size = 15;
         }
         if (font.equalsIgnoreCase("medium")) {
-            size = 20;
+            size = 15;
         }
         if (font.equalsIgnoreCase("large")) {
             size = 30;
@@ -1019,19 +1030,29 @@ public class Dlg_queue extends javax.swing.JDialog {
         if (font.equalsIgnoreCase("xl")) {
             size = 40;
         }
-        final String ss=s;
-        final int sizes=size;
-        Thread t1 = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                MarqueeLabel myLable = new MarqueeLabel(ss, MarqueeLabel.RIGHT_TO_LEFT, 10);
-                myLable.setFont(new Font("Serif", Font.BOLD, sizes));
-                jPanel3.setLayout(new BorderLayout());
-                jPanel3.add(myLable);
-            }
-        });
-        t1.start();
+        final String ss = s;
+        final int sizes = size;
+//        Thread t1 = new Thread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//
+//            }
+//        });
+//        t1.start();
+        try {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    MarqueeLabel myLable = new MarqueeLabel(ss, MarqueeLabel.RIGHT_TO_LEFT, 10);
+                    myLable.setFont(new Font("Serif", Font.BOLD, sizes));
+                    jPanel3.setLayout(new BorderLayout());
+                    jPanel3.add(myLable);
+                }
+            });
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
     }
 
@@ -1095,10 +1116,7 @@ public class Dlg_queue extends javax.swing.JDialog {
         Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
     }
 
-    private void ret_queue() {
-        String where = " where status=0  and teller IS NOT NULL order by id asc ";
-        List<Queues.to_queues> q = Queues.ret_data(where);
-    }
+    
 
     public void setSize() {
         Toolkit tk = Toolkit.getDefaultToolkit();
@@ -1109,9 +1127,13 @@ public class Dlg_queue extends javax.swing.JDialog {
         int l_height = jPanel4.getHeight();
         double width_left = xSize * 0.25;
         double width_right = xSize * 0.75;
-        jPanel4.setPreferredSize(new Dimension(FitIn.toInt("" + width_left), l_height));
-        jPanel22.setPreferredSize(new Dimension((FitIn.toInt("" + width_left) / 2), l_height));
-        jPanel5.setPreferredSize(new Dimension((FitIn.toInt("" + width_left) / 2), l_height));
+        double w_r1 = width_left / 1.5;
+        double w_r2 = width_left / 2.5;
+        jPanel4.setPreferredSize(new Dimension(350, l_height));
+        jPanel4.setMaximumSize(new Dimension(350, l_height));
+        jPanel4.setMaximumSize(new Dimension(350, l_height));
+        jPanel22.setPreferredSize(new Dimension(jPanel22.getWidth(), l_height));
+        jPanel14.setPreferredSize(new Dimension(jPanel14.getWidth() + 50, l_height));
 
         //Right panel
         int r_height = jPanel23.getHeight();
@@ -1126,7 +1148,7 @@ public class Dlg_queue extends javax.swing.JDialog {
         for (JPanel pnl : pnl_l) {
             pnl.setPreferredSize(new Dimension(pnl.getWidth(), FitIn.toInt("" + label_h)));
         }
-        JPanel[] pnl_r = {jPanel15, jPanel16, jPanel17, jPanel18, jPanel19, jPanel20, jPanel21};
+        JPanel[] pnl_r = {jPanel15, jPanel18, jPanel21, jPanel19, jPanel17, jPanel16, jPanel21};
         for (JPanel pnl : pnl_r) {
             pnl.setPreferredSize(new Dimension(pnl.getWidth(), FitIn.toInt("" + label_h)));
         }
@@ -1177,21 +1199,54 @@ public class Dlg_queue extends javax.swing.JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mediaPlayer.mute();
+                if (play_sound == 0) {
+                    play_sound = 1;
+                } else {
+                    play_sound = 0;
+                }
             }
         });
         KeyMapping.mapKeyWIFW(getSurface(),
                 KeyEvent.VK_F12, new KeyAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                play_audio("1", "1");
+                
+                ExecuteShellComand cmd = new ExecuteShellComand();
+                String espeak_version = System.getProperty("espeak_version", "");
+                String espeak_gender = System.getProperty("espeak_gender", "");
+                String espeak_speed = System.getProperty("espeak_speed", "");
+                String espeak_amplitude = System.getProperty("espeak_amplitude", "");
+                String espeak_pitch = System.getProperty("espeak_pitch", "");
+                String command = " espeak -v" + espeak_version + espeak_gender + " " + "-s" + espeak_speed + " -a" + espeak_amplitude + " -p" + espeak_pitch + " "
+                        + "\"Now Serving, Priority number. " + "E1." + " ";
+
+                Thread t = new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        String output = cmd.executeCommand(command);
+
+                    }
+                });
+                t.start();
+
+              
             }
         });
 
+        KeyMapping.mapKeyWIFW(getSurface(),
+                KeyEvent.VK_F9, new KeyAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                animateLabel(jLabel17, jLabel26, "1");
+            }
+        });
     }
     // </editor-fold>
 
     MediaPlayerFactory mediaPlayerFactory = null;
     EmbeddedMediaPlayer mediaPlayer = null;
+    int play_sound = 1;
 
     public void set_player() {
 
@@ -1332,6 +1387,7 @@ public class Dlg_queue extends javax.swing.JDialog {
                         queues[iii].setForeground(new java.awt.Color(0, 0, 0));
                         counters[iii].setForeground(new java.awt.Color(0, 0, 0));
                         animateLabel(counters[iii], queues[iii], type);
+
                         play_audio(counter_no, queue_no);
                     } else {
                         animateLabel_hide(counters[iii], queues[iii], type);
@@ -1396,100 +1452,137 @@ public class Dlg_queue extends javax.swing.JDialog {
     }
 
     private void animateLabel(JLabel lbl1, JLabel lbl2, String type) {
-
-        Thread t = new Thread(new Runnable() {
-
+        SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                Thread t = new Thread(new Runnable() {
 
-                Timer timer = new Timer();
-                TimerTask task = new TimerTask() {
-                    private int i = 0;
-
+                    @Override
                     public void run() {
-                        if (i == 5) {
-                            timer.cancel();
-                            timer.purge();
 
-                        }
-                        if (i == 1) {
-                            if (type.equals("1")) {
-                                lbl1.setForeground(new java.awt.Color(0, 51, 255));
-                                lbl2.setForeground(new java.awt.Color(0, 51, 255));
-                            }
-                            if (type.equals("2")) {
-                                lbl1.setForeground(new java.awt.Color(204, 0, 0));
-                                lbl2.setForeground(new java.awt.Color(204, 0, 0));
-                            }
-                            lbl1.setFont(new Font("AXIS Extra Bold", Font.BOLD, lbl1.getFont().getSize() + 2));
-                            lbl2.setFont(new Font("AXIS Extra Bold", Font.BOLD, lbl2.getFont().getSize() + 2));
+                        //<editor-fold defaultstate="collapsed" desc=" Test 1 ">
+                        Timer timer = new Timer();
+                        TimerTask task = new TimerTask() {
+                            private int i = 0;
 
-                        }
-                        if (i == 2) {
-                            lbl1.setFont(new Font("AXIS Extra Bold", Font.BOLD, lbl1.getFont().getSize() - 2));
-                            lbl2.setFont(new Font("AXIS Extra Bold", Font.BOLD, lbl2.getFont().getSize() - 2));
+                            public void run() {
+                                if (i == 5) {
+                                    timer.cancel();
+                                    timer.purge();
 
-                            lbl1.setForeground(new java.awt.Color(0, 0, 0));
-                            lbl2.setForeground(new java.awt.Color(0, 0, 0));
-                        }
-                        if (i == 3) {
-                            if (type.equals("1")) {
-                                lbl1.setForeground(new java.awt.Color(0, 51, 255));
-                                lbl2.setForeground(new java.awt.Color(0, 51, 255));
-                            }
-                            if (type.equals("2")) {
-                                lbl1.setForeground(new java.awt.Color(204, 0, 0));
-                                lbl2.setForeground(new java.awt.Color(204, 0, 0));
-                            }
-                            lbl1.setFont(new Font("AXIS Extra Bold", Font.BOLD, lbl1.getFont().getSize() + 2));
-                            lbl2.setFont(new Font("AXIS Extra Bold", Font.BOLD, lbl2.getFont().getSize() + 2));
+                                }
+                                if (i == 1) {
+                                    if (type.equals("1")) {
+                                        lbl1.setForeground(new java.awt.Color(0, 51, 255));
+                                        lbl2.setForeground(new java.awt.Color(0, 51, 255));
+                                    }
+                                    if (type.equals("2")) {
+                                        lbl1.setForeground(new java.awt.Color(204, 0, 0));
+                                        lbl2.setForeground(new java.awt.Color(204, 0, 0));
+                                    }
+                                    lbl1.setFont(new Font("AXIS Extra Bold", Font.BOLD, 50 + 4));
+                                    lbl2.setFont(new Font("AXIS Extra Bold", Font.BOLD, 50 + 4));
 
-                        }
-                        if (i == 4) {
-                            lbl1.setFont(new Font("AXIS Extra Bold", Font.BOLD, lbl1.getFont().getSize() - 2));
-                            lbl2.setFont(new Font("AXIS Extra Bold", Font.BOLD, lbl2.getFont().getSize() - 2));
-                            lbl1.setForeground(new java.awt.Color(0, 0, 0));
-                            lbl2.setForeground(new java.awt.Color(0, 0, 0));
-                        }
-                        i++;
+                                }
+                                if (i == 2) {
+                                    lbl1.setFont(new Font("AXIS Extra Bold", Font.BOLD, 50 - 4));
+                                    lbl2.setFont(new Font("AXIS Extra Bold", Font.BOLD, 50 - 4));
+
+                                    lbl1.setForeground(new java.awt.Color(0, 0, 0));
+                                    lbl2.setForeground(new java.awt.Color(0, 0, 0));
+                                }
+                                if (i == 3) {
+                                    if (type.equals("1")) {
+                                        lbl1.setForeground(new java.awt.Color(0, 51, 255));
+                                        lbl2.setForeground(new java.awt.Color(0, 51, 255));
+                                    }
+                                    if (type.equals("2")) {
+                                        lbl1.setForeground(new java.awt.Color(204, 0, 0));
+                                        lbl2.setForeground(new java.awt.Color(204, 0, 0));
+                                    }
+                                    lbl1.setFont(new Font("AXIS Extra Bold", Font.BOLD, 50 + 4));
+                                    lbl2.setFont(new Font("AXIS Extra Bold", Font.BOLD, 50 + 4));
+
+                                }
+                                if (i == 4) {
+                                    lbl1.setFont(new Font("AXIS Extra Bold", Font.BOLD, 50 - 4));
+                                    lbl2.setFont(new Font("AXIS Extra Bold", Font.BOLD, 50 - 4));
+                                    lbl1.setForeground(new java.awt.Color(0, 0, 0));
+                                    lbl2.setForeground(new java.awt.Color(0, 0, 0));
+                                }
+                                i++;
+                            }
+                        };
+                        timer.scheduleAtFixedRate(task, 0, 1000); //1000ms = 1sec
+                        jPanel4.updateUI();
+
+                        //</editor-fold>
                     }
-                };
-                timer.scheduleAtFixedRate(task, 0, 1000); //1000ms = 1sec
-
-                jPanel4.updateUI();
+                });
+                t.start();
             }
         });
-        t.start();
+
     }
 
-    private void play_audio(String customer_no, String counter_no) {
+    private void play_audio(final String customer_no, final String counter_no) {
 
+        final String espeak_version = System.getProperty("espeak_version", "");
+        final String espeak_gender = System.getProperty("espeak_gender", "");
+        final String espeak_speed = System.getProperty("espeak_speed", "");
+        final String espeak_amplitude = System.getProperty("espeak_amplitude", "");
+        final String espeak_pitch = System.getProperty("espeak_pitch", "");
         Thread t = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try {
-                    mediaPlayer.mute();
-                    String directory = System.getProperty("user.home");
-                    directory = directory + "\\rsc_queue\\bell.wav";
-                    File filename = new File(directory);
-                    Clip clip = AudioSystem.getClip();
-                    clip.open(AudioSystem.getAudioInputStream(filename));
-                    clip.start();
 
                     SwingUtilities.invokeAndWait(new Runnable() {
                         @Override
                         public void run() {
                             try {
 
-                                VoiceManager vm = VoiceManager.getInstance();
-                                Voice v = vm.getVoice("mbrola_us1");
-                                v.setDurationStretch(1);//set slow/fast talking
-                                v.setPitchRange(30); //30-normal
-                                v.allocate();
-                                v.speak("Customer Number " + counter_no + "... please proceed to counter " + customer_no + "...");
-                                v.speak("Customer Number " + counter_no + "... please proceed to counter " + customer_no + "...");
-                                mediaPlayer.mute();
+                                if (play_sound == 1) {
+                                    mediaPlayer.mute();
+                                }
+                                String directory = System.getProperty("user.home");
+                                directory = directory + "\\rsc_queue\\bell.wav";
+                                File filename = new File(directory);
+                                Clip clip = AudioSystem.getClip();
+                                clip.open(AudioSystem.getAudioInputStream(filename));
+                                clip.start();
+//                                Thread.sleep(1000);
+                                ExecuteShellComand cmd = new ExecuteShellComand();
+
+                                String stmt = customer_no;
+                                if (stmt.length() == 2) {
+                                    String s1 = stmt.substring(0, 1);
+                                    if (s1.equalsIgnoreCase("0")) {
+                                        stmt = stmt.substring(1, 2);
+                                    }
+                                }
+                                final String stmt2 = stmt;
+                                Thread t2 = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        String command = " espeak -v" + espeak_version + espeak_gender + " " + "-s" + espeak_speed + " -a" + espeak_amplitude + " -p" + espeak_pitch + " \"             customer number " + counter_no + ", please proceed to counter " + stmt2 + "!\" ";
+                                        String output = cmd.executeCommand(command);
+                                        String output2 = cmd.executeCommand(command);
+                                        if (play_sound == 1) {
+                                            mediaPlayer.mute();
+                                        }
+                                    }
+                                });
+                                t2.start();
+//                                VoiceManager vm = VoiceManager.getInstance();
+//                                Voice v = vm.getVoice("mbrola_us1");
+//                                v.setDurationStretch(1);//set slow/fast talking
+//                                v.setPitchRange(30); //30-normal
+//                                v.allocate();
+//                                v.speak("Customer Number " + counter_no + "... please proceed to counter " + customer_no + "...");
+//                                v.speak("Customer Number " + counter_no + "... please proceed to counter " + customer_no + "...");
+
                             } catch (Exception e) {
                                 System.out.println(e);
                             }

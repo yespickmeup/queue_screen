@@ -18,18 +18,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-/** @see http://stackoverflow.com/questions/3617326 */
+/**
+ * @see http://stackoverflow.com/questions/3617326
+ */
 public class MarqueeTest {
 
     private void display() {
         JFrame f = new JFrame("MarqueeTest");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         String s = "Tomorrow, and tomorrow, and tomorrow, "
-        + "creeps in this petty pace from day to day, "
-        + "to the last syllable of recorded time; ... "
-        + "It is a tale told by an idiot, full of "
-        + "sound and fury signifying nothing.";
-        MarqueePanel mp = new MarqueePanel(s, 32);
+                + "creeps in this petty pace from day to day, "
+                + "to the last syllable of recorded time; ... "
+                + "It is a tale told by an idiot, full of "
+                + "sound and fury signifying nothing.";
+        MarqueePanel mp = new MarqueePanel(s, 302);
         f.add(mp);
         f.pack();
         f.setLocationRelativeTo(null);
@@ -48,7 +50,9 @@ public class MarqueeTest {
     }
 }
 
-/** Side-scroll n characters of s. */
+/**
+ * Side-scroll n characters of s.
+ */
 class MarqueePanel extends JPanel implements ActionListener {
 
     private static final int RATE = 12;

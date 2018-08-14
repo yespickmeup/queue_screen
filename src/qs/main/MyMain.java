@@ -21,9 +21,8 @@ import javax.swing.SwingUtilities;
 import mijzcx.synapse.desk.utils.Application;
 import mijzcx.synapse.desk.utils.CloseDialog;
 import mijzcx.synapse.desk.utils.FitIn;
-
 import qs.util.Center;
-import queue.Dlg_queue;
+import queue.Dlg_queue2;
 
 /**
  *
@@ -60,7 +59,6 @@ public class MyMain {
             System.setProperty("pool_host", prop.getProperty("pool_host", "localhost"));
             System.out.println("local_ip: " + System.getProperty("local_ip"));
             System.out.println("pool_host: " + System.getProperty("pool_host"));
-
 
             System.setProperty("business_name", prop.getProperty("business_name", ""));
             System.setProperty("address", prop.getProperty("address", ""));
@@ -140,6 +138,12 @@ public class MyMain {
             System.setProperty("location_screen_y", prop.getProperty("location_screen_y", "0"));
             System.setProperty("font_size", prop.getProperty("font_size", "medium"));
 
+            System.setProperty("espeak_version", prop.getProperty("espeak_version", ""));
+            System.setProperty("espeak_gender", prop.getProperty("espeak_gender", ""));
+            System.setProperty("espeak_speed", prop.getProperty("espeak_speed", ""));
+            System.setProperty("espeak_amplitude", prop.getProperty("espeak_amplitude", ""));
+            System.setProperty("espeak_pitch", prop.getProperty("espeak_pitch", ""));
+
             //
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -162,7 +166,7 @@ public class MyMain {
     private void start() {
 
         Application.setSystemLookAndFeel();
-        Dlg_queue pnl = Dlg_queue.create(new javax.swing.JFrame(), true);
+        Dlg_queue2 pnl = Dlg_queue2.create(new javax.swing.JFrame(), true);
 
         Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/qs/img/link_logo (Custom).png"));
         pnl.setIconImage(image);
@@ -171,13 +175,12 @@ public class MyMain {
                 getWidth());
         int ySize = ((int) tk.getScreenSize().
                 getHeight());
-
         int sx = FitIn.toInt(System.getProperty("location_screen_x", "0"));
         int sy = FitIn.toInt(System.getProperty("location_screen_y", "0"));
         pnl.setLocation(sx, sy);
         pnl.setSize(xSize, ySize);
-        pnl.setSize();
-        pnl.set_font();
+//        pnl.set_font();
+//        pnl.setSize();
         pnl.set_lib();
         pnl.start_server2();
         SwingUtilities.invokeLater(new Runnable() {
