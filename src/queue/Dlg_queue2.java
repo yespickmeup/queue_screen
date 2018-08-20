@@ -34,6 +34,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import mijzcx.synapse.desk.utils.CloseDialog;
@@ -44,11 +50,13 @@ import qs.announcements.Announcements;
 import qs.test.Dlg_test_player;
 import qs.util.ExecuteShellComand;
 import uk.co.caprica.vlcj.binding.LibVlc;
+import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.medialist.MediaList;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.player.embedded.videosurface.CanvasVideoSurface;
 import uk.co.caprica.vlcj.player.list.MediaListPlayer;
+import uk.co.caprica.vlcj.player.list.MediaListPlayerEventListener;
 import uk.co.caprica.vlcj.player.list.MediaListPlayerMode;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
@@ -409,10 +417,10 @@ public class Dlg_queue2 extends javax.swing.JDialog {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -433,9 +441,7 @@ public class Dlg_queue2 extends javax.swing.JDialog {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(1, 1, 1))
+            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -474,12 +480,14 @@ public class Dlg_queue2 extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(5, 5, 5))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(1, 1, 1))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -497,7 +505,7 @@ public class Dlg_queue2 extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -570,8 +578,6 @@ public class Dlg_queue2 extends javax.swing.JDialog {
 
         ret_queues();
 
-//        set_lib();
-//        set_player();
     }
 
     public void do_pass() {
@@ -582,6 +588,7 @@ public class Dlg_queue2 extends javax.swing.JDialog {
     private void disposed() {
         this.dispose();
     }
+    ExecutorService service = Executors.newSingleThreadExecutor();
 
     private void init_key() {
         KeyMapping.mapKeyWIFW(getSurface(),
@@ -599,6 +606,36 @@ public class Dlg_queue2 extends javax.swing.JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mediaListPlayer_bell.play();
+            }
+        });
+
+        KeyMapping.mapKeyWIFW(getSurface(),
+                KeyEvent.VK_F12, new KeyAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mediaPlayer.mute();
+            }
+        });
+        KeyMapping.mapKeyWIFW(getSurface(),
+                KeyEvent.VK_F11, new KeyAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              //  call_number("01", "A1"); //-first methid
+//                try {
+//                    //                Future f = service.submit(new exec("01", "A1"));
+////                futures.add(f);
+//
+//                    One one = new One("01", "A1");
+//                    Future<Integer> future = service.submit(one);
+//                    Integer result = future.get();
+//
+//                } catch (InterruptedException ex) {
+//                    Logger.getLogger(Dlg_queue2.class.getName()).log(Level.SEVERE, null, ex);
+//                } catch (ExecutionException ex) {
+//                    Logger.getLogger(Dlg_queue2.class.getName()).log(Level.SEVERE, null, ex);
+//                }
             }
         });
 
@@ -674,14 +711,7 @@ public class Dlg_queue2 extends javax.swing.JDialog {
             }
         });
 
-//        Thread t = new Thread(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//
-//            }
-//        });
-//        t.start();
+//     
     }
 
     public static class MarqueeLabel extends JLabel {
@@ -857,15 +887,68 @@ public class Dlg_queue2 extends javax.swing.JDialog {
 
         factory_bell = new MediaPlayerFactory();
         mediaListPlayer_bell = factory_bell.newMediaListPlayer();
-        playList_bell = factory_bell.newMediaList();
-
-        String directory = System.getProperty("user.home");
-        directory = directory + "\\rsc_queue\\bell.wav";
-        playList_bell.addMedia(directory, options);
         mediaListPlayer_bell.setMode(MediaListPlayerMode.DEFAULT);
-        mediaListPlayer_bell.setMediaList(playList_bell);
+
+        mediaListPlayer_bell.addMediaListPlayerEventListener(new MediaListPlayerEventListener() {
+            @Override
+            public void played(MediaListPlayer mlp) {
+//                System.out.println("MediaListPlayer played ");
+            }
+
+            @Override
+            public void nextItem(MediaListPlayer mlp, libvlc_media_t l, String string) {
+//                System.out.println("MediaListPlayer nextItem ");
+            }
+
+            @Override
+            public void stopped(MediaListPlayer mlp) {
+//                System.out.println("MediaListPlayer stopped ");
+            }
+
+            @Override
+            public void mediaMetaChanged(MediaListPlayer mlp, int i) {
+//                System.out.println("MediaListPlayer mediaMetaChanged ");
+            }
+
+            @Override
+            public void mediaSubItemAdded(MediaListPlayer mlp, libvlc_media_t l) {
+//                System.out.println("MediaListPlayer mediaSubItemAdded ");
+            }
+
+            @Override
+            public void mediaDurationChanged(MediaListPlayer mlp, long l) {
+
+//                System.out.println("MediaListPlayer mediaDurationChanged " + mediaListPlayer_bell.isPlaying());
+            }
+
+            @Override
+            public void mediaParsedChanged(MediaListPlayer mlp, int i) {
+//                System.out.println("MediaListPlayer mediaParsedChanged ");
+            }
+
+            @Override
+            public void mediaFreed(MediaListPlayer mlp) {
+//                System.out.println("MediaListPlayer mediaFreed ");
+            }
+
+            @Override
+            public void mediaStateChanged(MediaListPlayer mlp, int i) {
+//                System.out.println("mlp: " + mlp.getMediaListPlayerState());
+////                mediaPlayer.mute(false);
+//                if (mlp.getMediaListPlayerState().toString().equals("libvlc_Ended")) {
+//                    if (count == 2) {
+//                        count = 0;
+//                        mediaPlayer.mute(false);
+//
+//                    }
+//                    count++;
+//                }
+
+            }
+        });
 
     }
+    int count = 0;
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc=" Start Server 2 ">
@@ -893,9 +976,9 @@ public class Dlg_queue2 extends javax.swing.JDialog {
 
                                 if (type.equals("1") || type.equals("2")) {
 //                                    init_call(counter_no, queue_no);
-                                    ExecutorService pool = Executors.newFixedThreadPool(1);
+                                    ExecutorService pool = Executors.newCachedThreadPool();
                                     try {
-                                        pool.submit(new One()).get();
+                                        pool.submit(new One(counter_no, queue_no)).get();
                                     } catch (InterruptedException ex) {
                                         Logger.getLogger(Dlg_test_player.class.getName()).log(Level.SEVERE, null, ex);
                                     } catch (ExecutionException ex) {
@@ -955,47 +1038,6 @@ public class Dlg_queue2 extends javax.swing.JDialog {
                 String command = " espeak -v" + espeak_version + espeak_gender + " " + "-s" + espeak_speed + " -a" + espeak_amplitude + " -p" + espeak_pitch + " \"             Now Serving, Ticket number. " + q1 + "--" + q2 + ". Please Proceed to Counter " + stmt2 + ".";
                 String output = cmd.executeCommand(command);
                 String output2 = cmd.executeCommand(command);
-//                try {
-//                    SwingUtilities.invokeLater(new Runnable() {
-//                        @Override
-//                        public void run() {
-//
-//                            try {
-//
-//                                if (play_sound == 1) {
-//                                    mediaPlayer.mute();
-//                                }
-//                                //Play Mp3
-//
-////                                String directory = System.getProperty("user.home");
-////                                directory = directory + "\\rsc_queue\\bell.wav";
-////                                File filename = new File(directory);
-////                                Clip clip = AudioSystem.getClip();
-////                                clip.open(AudioSystem.getAudioInputStream(filename));
-////                                clip.start();
-//                                //Voice
-////                              
-//                                if (play_sound == 1) {
-//                                    mediaPlayer.mute();
-//                                }
-////                                VoiceManager vm = VoiceManager.getInstance();
-////                                Voice v = vm.getVoice("mbrola_us1");
-////                                v.setDurationStretch(1);//set slow/fast talking
-////                                v.setPitchRange(30); //30-normal
-////                                v.allocate();
-////                                v.speak("Customer Number " + counter_no + "... please proceed to counter " + customer_no + "...");
-////                                v.speak("Customer Number " + counter_no + "... please proceed to counter " + customer_no + "...");
-//
-//                            } catch (Exception e) {
-//                                System.out.println(e);
-//                            }
-//                        }
-//                    });
-//
-//                } catch (Exception e) {
-//                    System.out.println(e);
-//                }
-
             }
         });
         if (t.isAlive()) {
@@ -1013,47 +1055,298 @@ public class Dlg_queue2 extends javax.swing.JDialog {
 
     public class One implements Callable<Integer> {
 
-        public One() {
+        String counter_no;
+        String queue_no;
+        int ti = 0;
+
+        public One(String counter_no, String queue_no) {
+            this.counter_no = counter_no;
+            this.queue_no = queue_no;
         }
 
         @Override
         public Integer call() throws Exception {
-            if (play_sound == 1) {
-                mediaPlayer.mute();
-            }
-            String counter_no = "01";
-            String queue_no = "A1";
-            final String espeak_version = System.getProperty("espeak_version", "");
-            final String espeak_gender = System.getProperty("espeak_gender", "");
-            final String espeak_speed = System.getProperty("espeak_speed", "");
-            final String espeak_amplitude = System.getProperty("espeak_amplitude", "");
-            final String espeak_pitch = System.getProperty("espeak_pitch", "");
-
-            String stmt = counter_no;
-            if (stmt.length() == 2) {
-                String s1 = stmt.substring(0, 1);
-                if (s1.equalsIgnoreCase("0")) {
-                    stmt = stmt.substring(1, 2);
+//            new exec(counter_no, queue_no).run();
+            try {
+                mediaPlayer.mute(true);
+                String directory = System.getProperty("user.home");
+                directory = directory + "\\rsc_queue\\bell.wav";
+                String stmt = counter_no;
+                if (stmt.length() == 2) {
+                    String s1 = stmt.substring(0, 1);
+                    if (s1.equalsIgnoreCase("0")) {
+                        stmt = stmt.substring(1, 2);
+                    }
                 }
-            }
-            jLabel1.setText(queue_no);
-            jLabel4.setText("Counter " + stmt);
-            String stmt2 = stmt;
-            mediaListPlayer_bell.play();
-            ExecuteShellComand cmd = new ExecuteShellComand();
-            String q1 = queue_no.substring(0, 1);
-            String q2 = queue_no.substring(1, queue_no.length());
-            System.out.println("q1: "+q1);
-            String command = " espeak -v" + espeak_version + espeak_gender + " " + "-s" + espeak_speed + " -a" + espeak_amplitude + " -p" + espeak_pitch + " \"             Now Serving, Ticket number. " + q1 + "-" + q2 + ". Please Proceed to Counter " + stmt2 + ".";
-            System.out.println(command);
-            String output = cmd.executeCommand(command);
-            String output2 = cmd.executeCommand(command);
+                jLabel1.setText(queue_no);
+                jLabel4.setText("Counter " + stmt);
+                String stmt2 = stmt;
+                String[] options = {};
+                String bell = System.getProperty("user.home");
+                bell = bell + "\\rsc_queue\\bell.wav";
+                String directory2 = System.getProperty("user.home");
+                directory2 = directory2 + "\\rsc_queue\\voices\\";
+                String q1 = queue_no.substring(0, 1);
+                String q2 = queue_no.substring(1, queue_no.length());
+                String now_serving = directory2 + q1 + "\\" + q2 + ".wav";
+                String counter = directory2 + "counter\\" + stmt2 + ".wav";
+                File filename = new File(directory);
+                File filename2 = new File(now_serving);
+                File filename3 = new File(counter);
+                Clip clip = AudioSystem.getClip();
+                Clip clip2 = AudioSystem.getClip();
+                Clip clip3 = AudioSystem.getClip();
 
-            if (play_sound == 1) {
-                mediaPlayer.mute();
+                try {
+                    clip.open(AudioSystem.getAudioInputStream(filename));
+                    clip2.open(AudioSystem.getAudioInputStream(filename2));
+                    clip3.open(AudioSystem.getAudioInputStream(filename3));
+                } catch (UnsupportedAudioFileException ex) {
+                    Logger.getLogger(Dlg_queue2.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Dlg_queue2.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                clip.addLineListener(new LineListener() {
+                    @Override
+                    public void update(LineEvent event) {
+                        if (event.getType() == LineEvent.Type.STOP) {
+                            clip2.start();
+                        }
+                    }
+                });
+                clip2.addLineListener(new LineListener() {
+                    @Override
+                    public void update(LineEvent event) {
+                        if (event.getType() == LineEvent.Type.STOP) {
+                            clip3.start();
+                        }
+                    }
+                });
+                clip3.addLineListener(new LineListener() {
+                    @Override
+                    public void update(LineEvent event) {
+                        if (event.getType() == LineEvent.Type.STOP) {
+                            mediaPlayer.mute(false);
+                            clip.drain();
+                            clip.stop();
+                            clip.close();
+                            clip2.drain();
+                            clip2.stop();
+                            clip2.close();
+                            clip3.drain();
+                            clip3.stop();
+                            clip3.close();
+                        }
+                    }
+                });
+
+                clip.start();
+
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(Dlg_queue2.class.getName()).log(Level.SEVERE, null, ex);
             }
             return 1;
 
         }
+
     }
+    int ti = 0;
+
+    private void call_number(String counter_no, String queue_no) {
+
+        Thread t1 = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    mediaPlayer.mute(true);
+                    String directory = System.getProperty("user.home");
+                    directory = directory + "\\rsc_queue\\bell.wav";
+                    String stmt = counter_no;
+                    if (stmt.length() == 2) {
+                        String s1 = stmt.substring(0, 1);
+                        if (s1.equalsIgnoreCase("0")) {
+                            stmt = stmt.substring(1, 2);
+                        }
+                    }
+                    jLabel1.setText(queue_no);
+                    jLabel4.setText("Counter " + stmt);
+                    String stmt2 = stmt;
+                    String[] options = {};
+                    String bell = System.getProperty("user.home");
+                    bell = bell + "\\rsc_queue\\bell.wav";
+                    String directory2 = System.getProperty("user.home");
+                    directory2 = directory2 + "\\rsc_queue\\voices\\";
+                    String q1 = queue_no.substring(0, 1);
+                    String q2 = queue_no.substring(1, queue_no.length());
+                    String now_serving = directory2 + q1 + "\\" + q2 + ".wav";
+                    String counter = directory2 + "counter\\" + stmt2 + ".wav";
+                    File filename = new File(directory);
+                    File filename2 = new File(now_serving);
+                    File filename3 = new File(counter);
+                    Clip clip = AudioSystem.getClip();
+                    Clip clip2 = AudioSystem.getClip();
+                    Clip clip3 = AudioSystem.getClip();
+
+                    try {
+                        clip.open(AudioSystem.getAudioInputStream(filename));
+                        clip2.open(AudioSystem.getAudioInputStream(filename2));
+                        clip3.open(AudioSystem.getAudioInputStream(filename3));
+                    } catch (UnsupportedAudioFileException ex) {
+                        Logger.getLogger(Dlg_queue2.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Dlg_queue2.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    clip.addLineListener(new LineListener() {
+                        @Override
+                        public void update(LineEvent event) {
+                            if (event.getType() == LineEvent.Type.STOP) {
+                                clip2.start();
+                            }
+                        }
+                    });
+                    clip2.addLineListener(new LineListener() {
+                        @Override
+                        public void update(LineEvent event) {
+                            if (event.getType() == LineEvent.Type.STOP) {
+                                clip3.start();
+                            }
+                        }
+                    });
+                    clip3.addLineListener(new LineListener() {
+                        @Override
+                        public void update(LineEvent event) {
+                            if (event.getType() == LineEvent.Type.STOP) {
+                                mediaPlayer.mute(false);
+                                clip.drain();
+                                clip.stop();
+                                clip.close();
+                                clip2.drain();
+                                clip2.stop();
+                                clip2.close();
+                                clip3.drain();
+                                clip3.stop();
+                                clip3.close();
+                            }
+                        }
+                    });
+
+                    clip.start();
+
+                } catch (LineUnavailableException ex) {
+                    Logger.getLogger(Dlg_queue2.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        });
+        System.out.println("t1.getThreadGroup()" + t1.getThreadGroup());
+        t1.run();
+
+    }
+
+    public class exec implements Runnable {
+
+        String counter_no;
+        String queue_no;
+
+        public exec(String counter_no, String queue_no) {
+            this.counter_no = counter_no;
+            this.queue_no = queue_no;
+        }
+        private final Object lock = new Object();
+
+        @Override
+        public void run() {
+            try {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            mediaPlayer.mute(true);
+                            String directory = System.getProperty("user.home");
+                            directory = directory + "\\rsc_queue\\bell.wav";
+                            String stmt = counter_no;
+                            if (stmt.length() == 2) {
+                                String s1 = stmt.substring(0, 1);
+                                if (s1.equalsIgnoreCase("0")) {
+                                    stmt = stmt.substring(1, 2);
+                                }
+                            }
+                            jLabel1.setText(queue_no);
+                            jLabel4.setText("Counter " + stmt);
+                            String stmt2 = stmt;
+                            String[] options = {};
+                            String bell = System.getProperty("user.home");
+                            bell = bell + "\\rsc_queue\\bell.wav";
+                            String directory2 = System.getProperty("user.home");
+                            directory2 = directory2 + "\\rsc_queue\\voices\\";
+                            String q1 = queue_no.substring(0, 1);
+                            String q2 = queue_no.substring(1, queue_no.length());
+                            String now_serving = directory2 + q1 + "\\" + q2 + ".wav";
+                            String counter = directory2 + "counter\\" + stmt2 + ".wav";
+                            File filename = new File(directory);
+                            File filename2 = new File(now_serving);
+                            File filename3 = new File(counter);
+                            Clip clip = AudioSystem.getClip();
+                            Clip clip2 = AudioSystem.getClip();
+                            Clip clip3 = AudioSystem.getClip();
+
+                            try {
+                                clip.open(AudioSystem.getAudioInputStream(filename));
+                                clip2.open(AudioSystem.getAudioInputStream(filename2));
+                                clip3.open(AudioSystem.getAudioInputStream(filename3));
+                            } catch (UnsupportedAudioFileException ex) {
+                                Logger.getLogger(Dlg_queue2.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (IOException ex) {
+                                Logger.getLogger(Dlg_queue2.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            clip.addLineListener(new LineListener() {
+                                @Override
+                                public void update(LineEvent event) {
+                                    if (event.getType() == LineEvent.Type.STOP) {
+                                        clip2.start();
+                                    }
+                                }
+                            });
+                            clip2.addLineListener(new LineListener() {
+                                @Override
+                                public void update(LineEvent event) {
+                                    if (event.getType() == LineEvent.Type.STOP) {
+                                        clip3.start();
+                                    }
+                                }
+                            });
+                            clip3.addLineListener(new LineListener() {
+                                @Override
+                                public void update(LineEvent event) {
+                                    if (event.getType() == LineEvent.Type.STOP) {
+                                        mediaPlayer.mute(false);
+                                        clip.drain();
+                                        clip.stop();
+                                        clip.close();
+                                        clip2.drain();
+                                        clip2.stop();
+                                        clip2.close();
+                                        clip3.drain();
+                                        clip3.stop();
+                                        clip3.close();
+                                    }
+                                }
+                            });
+
+                            clip.start();
+
+                        } catch (LineUnavailableException ex) {
+                            Logger.getLogger(Dlg_queue2.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+        }
+
+    }
+
 }

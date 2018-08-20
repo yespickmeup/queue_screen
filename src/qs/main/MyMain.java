@@ -143,7 +143,7 @@ public class MyMain {
             System.setProperty("espeak_speed", prop.getProperty("espeak_speed", ""));
             System.setProperty("espeak_amplitude", prop.getProperty("espeak_amplitude", ""));
             System.setProperty("espeak_pitch", prop.getProperty("espeak_pitch", ""));
-
+            System.setProperty("voice_type",prop.getProperty("voice_type","synsoft"));
             //
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -53,17 +53,15 @@ public class PlayMp3 {
         String directory = System.getProperty("user.home");
         directory = directory + "\\rsc_queue\\bell.wav";
 //        playList_bell.addMedia(directory, options);
-        String s1 = "C:\\Users\\Guinness\\Desktop\\Linq\\converted\\now_serving.mp3";
-        String num = "1";
-        String letter = "C:\\Users\\Guinness\\Desktop\\Linq\\converted\\a.mp3";
-        String please = "C:\\Users\\Guinness\\Desktop\\Linq\\converted\\please.wav";
-        String number = "C:\\Users\\Guinness\\Desktop\\Linq\\converted\\" + num + ".mp3";
-        String proceed = "C:\\Users\\Guinness\\Desktop\\Linq\\converted\\c" + num + ".wav";
-
-        playList_bell.addMedia(letter, options);
-        playList_bell.addMedia(number, options);
-        playList_bell.addMedia(please, options);
-        playList_bell.addMedia(proceed, options);
+        String[] letters = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+        for (String l : letters) {
+            for (int i = 1; i < 10; i++) {
+                String now_serving = "C:\\Users\\Guinness\\Desktop\\Linq\\converted\\" + l + "\\" + i + ".mp3";
+                String counter = "C:\\Users\\Guinness\\Desktop\\Linq\\converted\\counter\\" + i + ".mp3";
+                playList_bell.addMedia(now_serving, options);
+                playList_bell.addMedia(counter, options);
+            }
+        }
 
         mediaListPlayer_bell.setMode(MediaListPlayerMode.DEFAULT);
         mediaListPlayer_bell.setMediaList(playList_bell);
@@ -71,8 +69,6 @@ public class PlayMp3 {
     }
 
     private void play() {
-
         mediaListPlayer_bell.play();
-
     }
 }
