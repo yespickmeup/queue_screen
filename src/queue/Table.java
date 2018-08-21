@@ -48,7 +48,7 @@ public class Table {
         d.height = 0;
         tbl_degrees.getTableHeader().setPreferredSize(d);
         tbl_degrees.getTableHeader().setFont(new java.awt.Font("Arial", 0, 12));
-        tbl_degrees.setRowHeight(150);
+        tbl_degrees.setRowHeight(100);
 //        tbl_degrees.setFont(new java.awt.Font("Tahoma", 0, 1));
 
         TableColumnModel tcm = tbl_degrees.getColumnModel();
@@ -139,7 +139,7 @@ public class Table {
         d.height = 0;
         tbl_degrees.getTableHeader().setPreferredSize(d);
         tbl_degrees.getTableHeader().setFont(new java.awt.Font("Arial", 0, 12));
-        tbl_degrees.setRowHeight(150);
+        tbl_degrees.setRowHeight(100);
 //        tbl_degrees.setFont(new java.awt.Font("Tahoma", 0, 1));
 
         TableColumnModel tcm = tbl_degrees.getColumnModel();
@@ -205,16 +205,17 @@ public class Table {
                 boolean hasFocus, final int row, final int column) {
             String[] val = value.toString().split(",");
             JPanel panel1 = new JPanel();
-            panel1.setBackground(new java.awt.Color(15,157,223));
+            panel1.setBackground(new java.awt.Color(15, 157, 223));
             JLabel jLabel1 = new JLabel();
             JLabel jLabel2 = new JLabel();
             jLabel1.setFont(new java.awt.Font("Tahoma", 1, 50)); // NOI18N
             jLabel1.setText("Ticket " + val[0]);
-            jLabel1.setForeground(new java.awt.Color(200,219,226));
+            jLabel1.setForeground(new java.awt.Color(255, 255, 255));
 
             jLabel2.setFont(new java.awt.Font("Tahoma", 0, 50)); // NOI18N
             jLabel2.setText("Counter " + val[1]);
-            jLabel2.setForeground(new java.awt.Color(200,219,226));
+            jLabel2.setForeground(new java.awt.Color(200, 219, 226));
+
             javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(panel1);
             panel1.setLayout(jPanel1Layout);
             jPanel1Layout.setHorizontalGroup(
@@ -229,11 +230,11 @@ public class Table {
             jPanel1Layout.setVerticalGroup(
                     jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(5, 5, 5)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(1, 1, 1)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, Short.MAX_VALUE)
+                                    .addGap(5, 5, 5))
             );
 
             return panel1;

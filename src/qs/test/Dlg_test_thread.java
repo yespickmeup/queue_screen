@@ -677,6 +677,7 @@ public class Dlg_test_thread extends javax.swing.JDialog {
                     String stmt2 = stmt;
 
                     String directory2 = System.getProperty("user.home");
+                    String bell = directory2 + "\\rsc_queue\\bell.wav";
                     directory2 = directory2 + "\\rsc_queue\\voices\\";
 
                     String q1 = queue_no.substring(0, 1);
@@ -689,10 +690,10 @@ public class Dlg_test_thread extends javax.swing.JDialog {
                         "--video-title=vlcj video output"
                     };
 
+                    playList_bell.addMedia(bell, options);
                     playList_bell.addMedia(now_serving, options);
                     playList_bell.addMedia(counter, options);
                 }
-
                 mediaListPlayer_bell.play();
 
             }
@@ -791,12 +792,8 @@ public class Dlg_test_thread extends javax.swing.JDialog {
 
             @Override
             public void mediaStateChanged(MediaListPlayer mediaListPlayer, int newState) {
-
                 String media = mediaListPlayer.currentMrl();
                 mediaPlayer.mute(true);
-               
-
-
                 if (media.contains("counter")) {
                     int cn_index1 = media.indexOf("counter/");
                     int cn_index2 = media.indexOf(".wav");
@@ -809,14 +806,8 @@ public class Dlg_test_thread extends javax.swing.JDialog {
                         playlist.remove(0);
                         queue_no = "";
                         counter_no = "";
-
                     } else {
-                        System.out.println("media: " + media);
-                        if (ii == 1) {
-                            mediaPlayer.mute(false);
-                            ii = 0;
-                        }
-                        ii++;
+                        mediaPlayer.mute(false);
                     }
 
                 }
@@ -825,10 +816,7 @@ public class Dlg_test_thread extends javax.swing.JDialog {
                     int cn_index2 = media.indexOf(".wav");
                     queue_no = media.substring(cn_index1 + 8, cn_index2);
                     queue_no = queue_no.replace("/", "");
-
                 }
-
-//                System.out.println("mediaListPlayer: " + mediaListPlayer.currentMrl());
             }
 
         });

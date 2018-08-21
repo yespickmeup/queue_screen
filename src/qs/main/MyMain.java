@@ -180,7 +180,7 @@ public class MyMain {
         pnl.setLocation(sx, sy);
         pnl.setSize(xSize, ySize);
 //        pnl.set_font();
-//        pnl.setSize();
+        pnl.setSize();
         pnl.set_lib();
         pnl.start_server2();
         SwingUtilities.invokeLater(new Runnable() {
