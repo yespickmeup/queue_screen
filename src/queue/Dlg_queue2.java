@@ -1051,8 +1051,8 @@ public class Dlg_queue2 extends javax.swing.JDialog {
                     String q11 = q1.substring(0, 1);
                     String q2 = q1.substring(1, q1.length());
 
-                    String now_serving = directory2 + "letters\\" + q11 + "\\" + q2 + ".wav";
-                    String counter = directory2 + "counter\\" + stmt2 + ".wav";
+                    String now_serving = directory2 + "letters\\" + q11 + "\\" + q2 + ".mp3";
+                    String counter = directory2 + "counter\\" + stmt2 + ".mp3";
 
                     String[] options = {
                         "--video-title=vlcj video output"
