@@ -21,8 +21,7 @@ import qs.util.MyConnection;
  * @author Guinness
  */
 public class Settings {
-
-    public static class to_settings {
+  public static class to_settings {
 
         public final int id;
         public final String business_name;
@@ -57,8 +56,12 @@ public class Settings {
         public final String counter_no10_port;
         public final String server_ip;
         public final String server_port;
+        public final int screen_size_x;
+        public final int screen_size_y;
+        public final int play_video_sound;
 
-        public to_settings(int id, String business_name, String address, String contact_no, String pool_host, int print_queue_no, String queue_server_ip, String queue_server_port, String location_screen_x, String location_screen_y, String font_size, String counter_no1_ip, String counter_no1_port, String counter_no2_ip, String counter_no2_port, String counter_no3_ip, String counter_no3_port, String counter_no4_ip, String counter_no4_port, String counter_no5_ip, String counter_no5_port, String counter_no6_ip, String counter_no6_port, String counter_no7_ip, String counter_no7_port, String counter_no8_ip, String counter_no8_port, String counter_no9_ip, String counter_no9_port, String counter_no10_ip, String counter_no10_port, String server_ip, String server_port) {
+        public to_settings(int id, String business_name, String address, String contact_no, String pool_host, int print_queue_no, String queue_server_ip, String queue_server_port, String location_screen_x, String location_screen_y, String font_size, String counter_no1_ip, String counter_no1_port, String counter_no2_ip, String counter_no2_port, String counter_no3_ip, String counter_no3_port, String counter_no4_ip, String counter_no4_port, String counter_no5_ip, String counter_no5_port, String counter_no6_ip, String counter_no6_port, String counter_no7_ip, String counter_no7_port, String counter_no8_ip, String counter_no8_port, String counter_no9_ip, String counter_no9_port, String counter_no10_ip, String counter_no10_port,
+                String server_ip, String server_port, int screen_size_x, int screen_size_y, int play_video_sound) {
             this.id = id;
             this.business_name = business_name;
             this.address = address;
@@ -92,6 +95,9 @@ public class Settings {
             this.counter_no10_port = counter_no10_port;
             this.server_ip = server_ip;
             this.server_port = server_port;
+            this.screen_size_x = screen_size_x;
+            this.screen_size_y = screen_size_y;
+            this.play_video_sound = play_video_sound;
         }
     }
 
@@ -131,6 +137,9 @@ public class Settings {
                     + ",counter_no10_port"
                     + ",server_ip"
                     + ",server_port"
+                    + ",screen_size_x"
+                    + ",screen_size_y"
+                    + ",play_video_sound"
                     + ")values("
                     + ":business_name"
                     + ",:address"
@@ -164,6 +173,9 @@ public class Settings {
                     + ",:counter_no10_port"
                     + ",:server_ip"
                     + ",:server_port"
+                    + ",:screen_size_x"
+                    + ",:screen_size_y"
+                    + ",:play_video_sound"
                     + ")";
 
             s0 = SqlStringUtil.parse(s0)
@@ -199,6 +211,9 @@ public class Settings {
                     .setString("counter_no10_port", to_settings.counter_no10_port)
                     .setString("server_ip", to_settings.server_ip)
                     .setString("server_port", to_settings.server_port)
+                    .setNumber("screen_size_x", to_settings.screen_size_x)
+                    .setNumber("screen_size_y", to_settings.screen_size_y)
+                    .setNumber("play_video_sound", to_settings.play_video_sound)
                     .ok();
 
             PreparedStatement stmt = conn.prepareStatement(s0);
@@ -247,6 +262,9 @@ public class Settings {
                     + ",counter_no10_port= :counter_no10_port "
                     + ",server_ip= :server_ip "
                     + ",server_port= :server_port "
+                    + ",screen_size_x= :screen_size_x "
+                    + ",screen_size_y= :screen_size_y "
+                    + ",play_video_sound= :play_video_sound "
                     + " where id='" + to_settings.id + "' "
                     + " ";
 
@@ -283,6 +301,9 @@ public class Settings {
                     .setString("counter_no10_port", to_settings.counter_no10_port)
                     .setString("server_ip", to_settings.server_ip)
                     .setString("server_port", to_settings.server_port)
+                    .setNumber("screen_size_x", to_settings.screen_size_x)
+                    .setNumber("screen_size_y", to_settings.screen_size_y)
+                    .setNumber("play_video_sound", to_settings.play_video_sound)
                     .ok();
 
             PreparedStatement stmt = conn.prepareStatement(s0);
@@ -351,6 +372,9 @@ public class Settings {
                     + ",counter_no10_port"
                     + ",server_ip"
                     + ",server_port"
+                    + ",screen_size_x"
+                    + ",screen_size_y"
+                    + ",play_video_sound"
                     + " from settings"
                     + " " + where;
 
@@ -390,8 +414,11 @@ public class Settings {
                 String counter_no10_port = rs.getString(31);
                 String server_ip = rs.getString(32);
                 String server_port = rs.getString(33);
-
-                to_settings to = new to_settings(id, business_name, address, contact_no, pool_host, print_queue_no, queue_server_ip, queue_server_port, location_screen_x, location_screen_y, font_size, counter_no1_ip, counter_no1_port, counter_no2_ip, counter_no2_port, counter_no3_ip, counter_no3_port, counter_no4_ip, counter_no4_port, counter_no5_ip, counter_no5_port, counter_no6_ip, counter_no6_port, counter_no7_ip, counter_no7_port, counter_no8_ip, counter_no8_port, counter_no9_ip, counter_no9_port, counter_no10_ip, counter_no10_port, server_ip, server_port);
+                int screen_size_x=rs.getInt(34);
+                int screen_size_y=rs.getInt(35);
+                int play_video_sound=rs.getInt(36);
+                to_settings to = new to_settings(id, business_name, address, contact_no, pool_host, print_queue_no, queue_server_ip, queue_server_port, location_screen_x, location_screen_y, font_size, counter_no1_ip, counter_no1_port, counter_no2_ip, counter_no2_port, counter_no3_ip, counter_no3_port, counter_no4_ip, counter_no4_port, counter_no5_ip, counter_no5_port, counter_no6_ip, counter_no6_port, counter_no7_ip, counter_no7_port, counter_no8_ip, counter_no8_port, counter_no9_ip, counter_no9_port, counter_no10_ip, counter_no10_port, server_ip
+                        , server_port,screen_size_x,screen_size_y,play_video_sound);
                 datas.add(to);
             }
             return datas;

@@ -355,6 +355,7 @@ public class Dlg_queue2 extends javax.swing.JDialog {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         jScrollPane1.setBackground(new java.awt.Color(25, 130, 191));
+        jScrollPane1.setBorder(null);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane1.setFocusable(false);
@@ -375,7 +376,7 @@ public class Dlg_queue2 extends javax.swing.JDialog {
             }
         ));
         tbl_queue.setFocusable(false);
-        tbl_queue.setGridColor(new java.awt.Color(255, 255, 255));
+        tbl_queue.setGridColor(new java.awt.Color(25, 130, 191));
         tbl_queue.setOpaque(false);
         tbl_queue.setRowHeight(70);
         tbl_queue.setSelectionForeground(new java.awt.Color(18, 115, 172));
@@ -444,6 +445,7 @@ public class Dlg_queue2 extends javax.swing.JDialog {
             .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        jScrollPane3.setBorder(null);
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane3.setFocusable(false);
@@ -464,7 +466,7 @@ public class Dlg_queue2 extends javax.swing.JDialog {
             }
         ));
         tbl_queue1.setFocusable(false);
-        tbl_queue1.setGridColor(new java.awt.Color(255, 255, 255));
+        tbl_queue1.setGridColor(new java.awt.Color(25, 130, 191));
         tbl_queue1.setOpaque(false);
         tbl_queue1.setRowHeight(70);
         tbl_queue1.setSelectionForeground(new java.awt.Color(18, 115, 172));
@@ -563,6 +565,8 @@ public class Dlg_queue2 extends javax.swing.JDialog {
     private javax.swing.JTable tbl_queue1;
     // End of variables declaration//GEN-END:variables
     private void myInit() {
+
+//        System.setProperty("pool_password", "password");
         jLabel6.setText("Welcome to " + System.getProperty("business_name", "Bayawan Water District"));
         jLabel7.setText(System.getProperty("address", "Lot N, Block N. Don Gaspar Subdivision, Villareal, Bayawan City Negros Oriental"));
         jLabel8.setText(System.getProperty("contact_no", "Website: www.bawad.gov.ph | Telephone Number: (035) 430-0361"));
@@ -579,6 +583,8 @@ public class Dlg_queue2 extends javax.swing.JDialog {
         jScrollPane3.getViewport().setBackground(new java.awt.Color(15, 157, 223));
 
     }
+
+    int play_video_sound = 0;
 
     public void do_pass() {
 //        [14,97,146]
@@ -605,16 +611,18 @@ public class Dlg_queue2 extends javax.swing.JDialog {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                mediaListPlayer_bell.play();
+//                mediaListPlayer_bell.play();
             }
         });
 
         KeyMapping.mapKeyWIFW(getSurface(),
-                KeyEvent.VK_F12, new KeyAction() {
+                KeyEvent.VK_F5, new KeyAction() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                mediaPlayer.mute();
+                if (play_video_sound == 1) {
+                    mediaPlayer.mute();
+                }
             }
         });
         KeyMapping.mapKeyWIFW(getSurface(),
@@ -631,6 +639,10 @@ public class Dlg_queue2 extends javax.swing.JDialog {
     // </editor-fold>
 
     public void setSize() {
+
+        int play_video_sound1 = FitIn.toInt(System.getProperty("play_video_sound", "0"));
+        play_video_sound = play_video_sound1;
+
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xSize = ((int) tk.getScreenSize().getWidth());
         int ySize = ((int) tk.getScreenSize().getHeight());
@@ -641,8 +653,8 @@ public class Dlg_queue2 extends javax.swing.JDialog {
         double width_left = xSize * 0.40;
         double width_right = xSize * 0.60;
 
-        System.out.println("width_left: " + width_left);
-        System.out.println("width_right: " + width_right);
+//        System.out.println("width_left: " + width_left);
+//        System.out.println("width_right: " + width_right);
         jPanel6.setPreferredSize(new Dimension(FitIn.toInt("" + width_right), middle_h));
         jPanel4.setPreferredSize(new Dimension(FitIn.toInt("" + width_left), middle_h));
     }
@@ -789,10 +801,12 @@ public class Dlg_queue2 extends javax.swing.JDialog {
         List<queue> qs2 = new ArrayList();
         String where = " where status=0  and Date(created_at)='" + date + "' and teller IS NOT NULL order by id asc";
         List<Queues.to_queues> data = Queues.ret_data(where);
+        int q_count = FitIn.toInt(System.getProperty("queue_count", "3"));
+        q_count = q_count - 1;
         int i = 0;
         for (Queues.to_queues q : data) {
             queue qu = new queue(q.id, q.queue_no, q.counter_no);
-            if (i <= 2) {
+            if (i <= q_count) {
                 qs.add(qu);
 
             } else {
@@ -847,6 +861,11 @@ public class Dlg_queue2 extends javax.swing.JDialog {
 //        mediaPlayer.setVolume(1);
         mediaPlayer.enableMarquee(true);
         mediaPlayer.setFullScreen(true);
+        if (play_video_sound == 0) {
+            mediaPlayer.mute(true);
+        } else {
+            mediaPlayer.mute(false);
+        }
 
         MediaListPlayer mediaListPlayer = mediaPlayerFactory.newMediaListPlayer();
 
@@ -898,6 +917,8 @@ public class Dlg_queue2 extends javax.swing.JDialog {
             @Override
             public void nextItem(MediaListPlayer mediaListPlayer, libvlc_media_t item, String itemMrl) {
 
+                String media = mediaListPlayer.currentMrl();
+//                System.out.println("media1: " + media);
                 String[] s = playlist.get(0).split(",");
                 String queue_no = s[0];
                 String counter_no = s[1];
@@ -912,7 +933,9 @@ public class Dlg_queue2 extends javax.swing.JDialog {
             @Override
             public void mediaStateChanged(MediaListPlayer mediaListPlayer, int newState) {
                 String media = mediaListPlayer.currentMrl();
-                mediaPlayer.mute(true);
+                if (play_video_sound == 1) {
+                    mediaPlayer.mute(true);
+                }
 
                 if (count == 0 || count == 2 || count == 4 || count == 6) {
                     jLabel1.setForeground(new java.awt.Color(11, 33, 145));
@@ -924,21 +947,31 @@ public class Dlg_queue2 extends javax.swing.JDialog {
                     jLabel1.setFont(new java.awt.Font("Tahoma", 1, 150));
                 }
                 if (media.contains("counter")) {
-                    int cn_index1 = media.indexOf("counter/");
-                    int cn_index2 = media.indexOf(".wav");
 
-                    counter_no = media.substring(cn_index1 + 8, cn_index2);
-                    counter_no = counter_no.replace("/", "");
+                    int cn_index1 = media.indexOf("counter/");
+                    int cn_index2 = media.indexOf(".mp3");
+
+                    try {
+                        counter_no = media.substring(cn_index1 + 8, cn_index2);
+                        counter_no = counter_no.replace("/", "");
+
+                    } catch (Exception e) {
+                        System.out.println("e: " + e);
+                    }
+
                     if (!counter_no.isEmpty() && !queue_no.isEmpty()) {
+
 //                        jLabel4.setText(counter_no);
 //                        jLabel1.setText(queue_no);
-
                         playlist.remove(0);
                         queue_no = "";
                         counter_no = "";
                         count = 0;
                     } else {
-                        mediaPlayer.mute(false);
+
+                        if (play_video_sound == 1) {
+                            mediaPlayer.mute(false);
+                        }
                         jLabel1.setForeground(new java.awt.Color(204, 0, 20));
                         jLabel4.setForeground(new java.awt.Color(204, 0, 20));
                         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 140));
@@ -947,7 +980,7 @@ public class Dlg_queue2 extends javax.swing.JDialog {
                 }
                 if (media.contains("letters")) {
                     int cn_index1 = media.indexOf("letters/");
-                    int cn_index2 = media.indexOf(".wav");
+                    int cn_index2 = media.indexOf(".mp3");
                     queue_no = media.substring(cn_index1 + 8, cn_index2);
                     queue_no = queue_no.replace("/", "");
                 }
@@ -993,6 +1026,7 @@ public class Dlg_queue2 extends javax.swing.JDialog {
                                     ret_queues();
                                     String qn = jLabel1.getText();
                                     String cn = jLabel4.getText();
+                                    cn = cn.replace("Counter ", "");
                                     if (qn.equalsIgnoreCase(queue_no) && cn.equalsIgnoreCase(counter_no)) {
                                         jLabel1.setText("");
                                         jLabel4.setText("");
