@@ -5,8 +5,7 @@
  */
 package qs.test;
 
-import jaco.mp3.player.MP3Player;
-import java.io.File;
+//import jaco.mp3.player.MP3Player;
 
 /**
  *
@@ -19,12 +18,12 @@ public class Wav {
     }
 
     public static void speak2() {
-        String file_serving = "C:\\Users\\Guinness\\rsc_queue\\synthesize\\now_serving.wav";
-        File file1 = new File(file_serving);
-        File file2 = new File(file_serving);
-        File file3 = new File(file_serving);
-
-        new MP3Player(file1, file2, file3).play();
+//        String file_serving = "C:\\Users\\Guinness\\rsc_queue\\synthesize\\now_serving.wav";
+//        File file1 = new File(file_serving);
+//        File file2 = new File(file_serving);
+//        File file3 = new File(file_serving);
+//
+//        new MP3Player(file1, file2, file3).play();
     }
 
 }
