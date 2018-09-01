@@ -208,11 +208,11 @@ public class Table {
             panel1.setBackground(new java.awt.Color(15, 157, 223));
             JLabel jLabel1 = new JLabel();
             JLabel jLabel2 = new JLabel();
-            jLabel1.setFont(new java.awt.Font("Tahoma", 1, 50)); // NOI18N
+            jLabel1.setFont(new java.awt.Font("Tahoma", 1, 42)); // NOI18N
             jLabel1.setText("Ticket " + val[0]);
             jLabel1.setForeground(new java.awt.Color(255, 255, 255));
 
-            jLabel2.setFont(new java.awt.Font("Tahoma", 0, 50)); // NOI18N
+            jLabel2.setFont(new java.awt.Font("Tahoma", 0, 45)); // NOI18N
             jLabel2.setText("Counter " + val[1]);
             jLabel2.setForeground(new java.awt.Color(200, 219, 226));
 

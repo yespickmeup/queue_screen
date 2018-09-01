@@ -21,8 +21,7 @@ import qs.util.MyConnection;
  * @author Guinness
  */
 public class Counters {
-
-    public static class to_counters {
+  public static class to_counters {
 
         public final int id;
         public final String counter;
@@ -34,8 +33,9 @@ public class Counters {
         public final String created_by;
         public final String updated_by;
         public final int status;
-
-        public to_counters(int id, String counter, String department, String department_id, String ip_address, String created_at, String updated_at, String created_by, String updated_by, int status) {
+        public final String shortcut;
+        public final int login;
+        public to_counters(int id, String counter, String department, String department_id, String ip_address, String created_at, String updated_at, String created_by, String updated_by, int status,String shortcut,int login) {
             this.id = id;
             this.counter = counter;
             this.department = department;
@@ -46,6 +46,8 @@ public class Counters {
             this.created_by = created_by;
             this.updated_by = updated_by;
             this.status = status;
+            this.shortcut=shortcut;
+            this.login=login;
         }
     }
 
@@ -62,6 +64,8 @@ public class Counters {
                     + ",created_by"
                     + ",updated_by"
                     + ",status"
+                    + ",shortcut"
+                    + ",login"
                     + ")values("
                     + ":counter"
                     + ",:department"
@@ -72,6 +76,8 @@ public class Counters {
                     + ",:created_by"
                     + ",:updated_by"
                     + ",:status"
+                    + ",:shortcut"
+                    + ",:login"
                     + ")";
 
             s0 = SqlStringUtil.parse(s0)
@@ -84,6 +90,8 @@ public class Counters {
                     .setString("created_by", to_counters.created_by)
                     .setString("updated_by", to_counters.updated_by)
                     .setNumber("status", to_counters.status)
+                    .setString("shortcut",to_counters.shortcut)
+                    .setNumber("login",to_counters.login)
                     .ok();
 
             PreparedStatement stmt = conn.prepareStatement(s0);
@@ -109,6 +117,8 @@ public class Counters {
                     + ",created_by= :created_by "
                     + ",updated_by= :updated_by "
                     + ",status= :status "
+                    + ",shortcut= :shortcut"
+                    + ",login= :login"
                     + " where id='" + to_counters.id + "' "
                     + " ";
 
@@ -122,6 +132,8 @@ public class Counters {
                     .setString("created_by", to_counters.created_by)
                     .setString("updated_by", to_counters.updated_by)
                     .setNumber("status", to_counters.status)
+                    .setString("shortcut",to_counters.shortcut)
+                    .setNumber("login",to_counters.login)
                     .ok();
 
             PreparedStatement stmt = conn.prepareStatement(s0);
@@ -167,6 +179,8 @@ public class Counters {
                     + ",created_by"
                     + ",updated_by"
                     + ",status"
+                    + ",shortcut"
+                    + ",login"
                     + " from counters"
                     + " " + where;
 
@@ -183,8 +197,9 @@ public class Counters {
                 String created_by = rs.getString(8);
                 String updated_by = rs.getString(9);
                 int status = rs.getInt(10);
-
-                to_counters to = new to_counters(id, counter, department, department_id, ip_address, created_at, updated_at, created_by, updated_by, status);
+                String shortcut=rs.getString(11);
+                int login=rs.getInt(12);
+                to_counters to = new to_counters(id, counter, department, department_id, ip_address, created_at, updated_at, created_by, updated_by, status,shortcut,login);
                 datas.add(to);
             }
             return datas;
@@ -194,5 +209,4 @@ public class Counters {
             MyConnection.close();
         }
     }
-
 }
