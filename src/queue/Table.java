@@ -203,9 +203,16 @@ public class Table {
         public Component getTableCellRendererComponent(
                 JTable table, Object value, boolean isSelected,
                 boolean hasFocus, final int row, final int column) {
+            String business_name = System.getProperty("business_name", "Bayawan Water District");
+
             String[] val = value.toString().split(",");
             JPanel panel1 = new JPanel();
-            panel1.setBackground(new java.awt.Color(15, 157, 223));
+
+            if (business_name.equalsIgnoreCase("Bayawan Water District")) {
+                panel1.setBackground(new java.awt.Color(15, 157, 223));
+            } else {
+                panel1.setBackground(new java.awt.Color(25, 130, 191));
+            }
             JLabel jLabel1 = new JLabel();
             JLabel jLabel2 = new JLabel();
             jLabel1.setFont(new java.awt.Font("Tahoma", 1, 42)); // NOI18N

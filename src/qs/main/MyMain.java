@@ -91,7 +91,7 @@ public class MyMain {
 
                 System.setProperty("screen_size_x", prop.getProperty("screen_size_x", "" + setting.screen_size_x));
                 System.setProperty("screen_size_y", prop.getProperty("screen_size_y", "" + setting.screen_size_y));
-                System.setProperty("play_video_sound", prop.getProperty("location_screen_y", "" + setting.play_video_sound));
+                System.setProperty("play_video_sound", prop.getProperty("play_video_sound", "" + setting.play_video_sound));
             }
 
         } catch (IOException e) {

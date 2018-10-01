@@ -273,10 +273,10 @@ public class Dlg_queue extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(25, 130, 191));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jPanel2.setBackground(new java.awt.Color(18, 115, 172));
+        jPanel2.setBackground(new java.awt.Color(75, 134, 180));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(42, 77, 105));
         jLabel2.setText("Queing System");
 
         jLabel4.setBackground(java.awt.Color.lightGray);

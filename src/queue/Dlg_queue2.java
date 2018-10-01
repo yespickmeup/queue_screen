@@ -248,7 +248,6 @@ public class Dlg_queue2 extends javax.swing.JDialog {
         jPanel2.setBackground(new java.awt.Color(134, 213, 246));
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qs/img/bawad (Custom).png"))); // NOI18N
         jLabel5.setOpaque(true);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 40)); // NOI18N
@@ -384,7 +383,7 @@ public class Dlg_queue2 extends javax.swing.JDialog {
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel7.setBackground(new java.awt.Color(134, 213, 246));
+        jPanel7.setBackground(new java.awt.Color(231, 239, 246));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(11, 33, 145));
@@ -411,12 +410,12 @@ public class Dlg_queue2 extends javax.swing.JDialog {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(10, 10, 10)))
                 .addContainerGap())
         );
@@ -481,9 +480,9 @@ public class Dlg_queue2 extends javax.swing.JDialog {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(1, 1, 1)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addGap(5, 5, 5))
         );
         jPanel4Layout.setVerticalGroup(
@@ -502,7 +501,7 @@ public class Dlg_queue2 extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
+                .addGap(0, 0, 0)
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -570,20 +569,49 @@ public class Dlg_queue2 extends javax.swing.JDialog {
         jLabel6.setText("Welcome to " + System.getProperty("business_name", "Bayawan Water District"));
         jLabel7.setText(System.getProperty("address", "Lot N, Block N. Don Gaspar Subdivision, Villareal, Bayawan City Negros Oriental"));
         jLabel8.setText(System.getProperty("contact_no", "Website: www.bawad.gov.ph | Telephone Number: (035) 430-0361"));
+
+        try {
+            String userHome = System.getProperty("user.home");
+            userHome = userHome + "\\rsc_queue\\logo.png";
+            jLabel5.setIcon(new javax.swing.ImageIcon(userHome)); // NOI18N
+        } catch (Exception e) {
+        }
         init_key();
         set_label();
-
+//        setUI();
         set_time();
         ret_announcements();
         Table.init_tbl_announcements(tbl_queue);
         Table.init_tbl_announcements2(tbl_queue1);
 
         ret_queues();
-        jScrollPane1.getViewport().setBackground(new java.awt.Color(15, 157, 223));
-        jScrollPane3.getViewport().setBackground(new java.awt.Color(15, 157, 223));
 
     }
 
+    private void setUI() {
+        String business_name = System.getProperty("business_name", "Bayawan Water District");
+        if (business_name.equalsIgnoreCase("Bayawan Water District")) {
+            jScrollPane1.getViewport().setBackground(new java.awt.Color(15, 157, 223));
+            jScrollPane3.getViewport().setBackground(new java.awt.Color(15, 157, 223));
+        } else {
+            jPanel2.setBackground(new java.awt.Color(75, 134, 180));
+            jLabel6.setForeground(new java.awt.Color(42, 77, 105));
+            jLabel7.setForeground(new java.awt.Color(42, 77, 105));
+            jLabel8.setForeground(new java.awt.Color(42, 77, 105));
+            jLabel9.setForeground(new java.awt.Color(42, 77, 105));
+            jLabel10.setForeground(new java.awt.Color(42, 77, 105));
+
+            jPanel7.setBackground(new java.awt.Color(231, 239, 246));
+            jLabel2.setForeground(new java.awt.Color(42, 77, 105));
+            jLabel3.setForeground(new java.awt.Color(42, 77, 105));
+
+            jPanel3.setBackground(new java.awt.Color(75, 134, 180));
+
+            jScrollPane1.getViewport().setBackground(new java.awt.Color(25, 130, 191));
+            jScrollPane3.getViewport().setBackground(new java.awt.Color(25, 130, 191));
+        }
+
+    }
     int play_video_sound = 0;
 
     public void do_pass() {
@@ -715,8 +743,13 @@ public class Dlg_queue2 extends javax.swing.JDialog {
             public void run() {
                 Dlg_queue.MarqueeLabel myLable = new Dlg_queue.MarqueeLabel(ss, Dlg_queue2.MarqueeLabel.RIGHT_TO_LEFT, 10);
                 myLable.setFont(new Font("Serif", Font.BOLD, 40));
-                myLable.setForeground(new java.awt.Color(204, 0, 0));
 
+                String business_name = System.getProperty("business_name", "Bayawan Water District");
+                if (business_name.equalsIgnoreCase("Bayawan Water District")) {
+                    myLable.setForeground(new java.awt.Color(204, 0, 0));
+                } else {
+                    myLable.setForeground(new java.awt.Color(42, 77, 105));
+                }
                 jPanel8.add(myLable);
                 jPanel8.updateUI();
             }
@@ -861,11 +894,6 @@ public class Dlg_queue2 extends javax.swing.JDialog {
 //        mediaPlayer.setVolume(1);
         mediaPlayer.enableMarquee(true);
         mediaPlayer.setFullScreen(true);
-        if (play_video_sound == 0) {
-            mediaPlayer.mute(true);
-        } else {
-            mediaPlayer.mute(false);
-        }
 
         MediaListPlayer mediaListPlayer = mediaPlayerFactory.newMediaListPlayer();
 
@@ -884,16 +912,17 @@ public class Dlg_queue2 extends javax.swing.JDialog {
         for (File file : files) {
             if (file.isFile()) {
                 mediaList.addMedia(home + file.getName(), VLC_ARGS);
-
             }
         }
-
         mediaListPlayer.setMediaList(mediaList);
-
         mediaListPlayer.setMode(MediaListPlayerMode.LOOP);
-
         mediaListPlayer.play();
-
+//        System.out.println("play_video_sound: " + play_video_sound);
+        if (play_video_sound == 0) {
+            mediaPlayer.mute(true);
+        } else {
+            mediaPlayer.mute(false);
+        }
         //Call
         factory_bell = new MediaPlayerFactory();
         mediaListPlayer_bell = factory_bell.newMediaListPlayer();
