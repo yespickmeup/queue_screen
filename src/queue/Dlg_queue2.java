@@ -383,7 +383,7 @@ public class Dlg_queue2 extends javax.swing.JDialog {
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel7.setBackground(new java.awt.Color(231, 239, 246));
+        jPanel7.setBackground(new java.awt.Color(165, 201, 231));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(11, 33, 145));
@@ -569,7 +569,7 @@ public class Dlg_queue2 extends javax.swing.JDialog {
         jLabel6.setText("Welcome to " + System.getProperty("business_name", "Bayawan Water District"));
         jLabel7.setText(System.getProperty("address", "Lot N, Block N. Don Gaspar Subdivision, Villareal, Bayawan City Negros Oriental"));
         jLabel8.setText(System.getProperty("contact_no", "Website: www.bawad.gov.ph | Telephone Number: (035) 430-0361"));
-
+        
         try {
             String userHome = System.getProperty("user.home");
             userHome = userHome + "\\rsc_queue\\logo.png";

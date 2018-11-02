@@ -77,7 +77,7 @@ public class MyMain {
                 System.setProperty("business_name", prop.getProperty("business_name", setting.business_name));
                 System.setProperty("address", prop.getProperty("address", setting.address));
                 System.setProperty("operated_by", prop.getProperty("operated_by", ""));
-                System.setProperty("contact_number", prop.getProperty("contact_number", setting.contact_no));
+                System.setProperty("contact_no", prop.getProperty("contact_no", setting.contact_no));
                 System.setProperty("slogan", prop.getProperty("slogan", ""));
                 if (setting.print_queue_no == 0) {
                     System.setProperty("print_queue_no", prop.getProperty("print_queue_no", "false"));
