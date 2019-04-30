@@ -717,7 +717,6 @@ public class Dlg_queue2 extends javax.swing.JDialog {
             }
         });
         t1.start();
-
     }
 
     private void ret_announcements() {

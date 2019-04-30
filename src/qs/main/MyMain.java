@@ -25,6 +25,7 @@ import mijzcx.synapse.desk.utils.FitIn;
 import qs.settings.Settings;
 import qs.util.Center;
 import queue.Dlg_queue2;
+import queue.Dlg_queue_sme;
 
 /**
  *
@@ -66,7 +67,7 @@ public class MyMain {
             System.setProperty("hdd_drive", prop.getProperty("hdd_drive", ""));
             System.setProperty("environment", prop.getProperty("environment", "production"));
             System.setProperty("queue_count", prop.getProperty("queue_count", "3"));
-            
+            System.setProperty("version", prop.getProperty("version", ""));
             System.setProperty("VLC_PLUGIN_PATH", prop.getProperty("VLC_PLUGIN_PATH", ""));
             System.setProperty("VLC_PLUGIN_NATIVE_PATH", prop.getProperty("VLC_PLUGIN_NATIVE_PATH", ""));
 
@@ -113,36 +114,58 @@ public class MyMain {
     }
 
     private void start() {
-
         Application.setSystemLookAndFeel();
-        Dlg_queue2 pnl = Dlg_queue2.create(new javax.swing.JFrame(), true);
+        String version = System.getProperty("version", "");
+        if (version.equalsIgnoreCase("sme")) {
 
-        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/qs/img/link_logo (Custom).png"));
-        pnl.setIconImage(image);
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        int xSize = ((int) tk.getScreenSize().
-                getWidth());
-        int ySize = ((int) tk.getScreenSize().
-                getHeight());
-        int sx = FitIn.toInt(System.getProperty("location_screen_x", "0"));
-        int sy = FitIn.toInt(System.getProperty("location_screen_y", "0"));
+            Dlg_queue_sme nd = Dlg_queue_sme.create(new javax.swing.JFrame(), true);
+            nd.setTitle("");
 
-        int screen_size_x = FitIn.toInt(System.getProperty("screen_size_x", "1366"));
-        int screen_size_y = FitIn.toInt(System.getProperty("screen_size_y", "768"));
+            nd.setCallback(new Dlg_queue_sme.Callback() {
 
-        pnl.setLocation(sx, sy);
-        pnl.setSize(screen_size_x, screen_size_y);
+                @Override
+                public void ok(CloseDialog closeDialog, Dlg_queue_sme.OutputData data) {
+                    closeDialog.ok();
+
+                }
+            });
+            nd.start_server2();
+            Toolkit tk = Toolkit.getDefaultToolkit();
+            int xSize = ((int) tk.getScreenSize().
+                    getWidth());
+            int ySize = ((int) tk.getScreenSize().
+                    getHeight());
+            nd.setSize(xSize, ySize);
+            nd.setVisible(true);
+        } else {
+            Dlg_queue2 pnl = Dlg_queue2.create(new javax.swing.JFrame(), true);
+            Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/qs/img/link_logo (Custom).png"));
+            pnl.setIconImage(image);
+            Toolkit tk = Toolkit.getDefaultToolkit();
+            int xSize = ((int) tk.getScreenSize().
+                    getWidth());
+            int ySize = ((int) tk.getScreenSize().
+                    getHeight());
+            int sx = FitIn.toInt(System.getProperty("location_screen_x", "0"));
+            int sy = FitIn.toInt(System.getProperty("location_screen_y", "0"));
+
+            int screen_size_x = FitIn.toInt(System.getProperty("screen_size_x", "1366"));
+            int screen_size_y = FitIn.toInt(System.getProperty("screen_size_y", "768"));
+
+            pnl.setLocation(sx, sy);
+            pnl.setSize(screen_size_x, screen_size_y);
 //        pnl.set_font();
-        pnl.setSize();
-        pnl.set_lib();
-        pnl.start_server2();
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                pnl.set_player();
-            }
-        });
-        pnl.setVisible(true);
+            pnl.setSize();
+            pnl.set_lib();
+            pnl.start_server2();
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    pnl.set_player();
+                }
+            });
+            pnl.setVisible(true);
+        }
 
     }
 
